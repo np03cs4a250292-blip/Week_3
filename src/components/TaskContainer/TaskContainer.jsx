@@ -1,9 +1,10 @@
 import "./TaskContainer.css";
 
 function TaskContainer() {
+    const containerTitle = "Task Due Today";
   return (
     <>
-      <h2>Tasks Due Today</h2>
+      <h2>{containerTitle}</h2>
       <ul>
         <li>
           <span>9:00 AM</span>-<span>Get eggs in 5 mins</span>
