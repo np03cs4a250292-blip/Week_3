@@ -8,12 +8,14 @@ function TaskContainer() {
     { time: "10:00 AM", text: "Complete task1", isUrgent: false },
     { time: "4:00 PM", text: "Go for a walk", isUrgent: false },
   ];
+
+  const listItemStyle = {listStyle: "none", color: "whitesmoke", fontSize: "1rem"};
   return (
     <>
       <h2>{containerTitle}</h2>
       <ul>
         {tasks.map((task, index) => (
-          <li key={index}>
+          <li style={listItemStyle} key={index}>
             <span>{task.time}</span>-<span>{task.text}</span>
           </li>
         ))}
