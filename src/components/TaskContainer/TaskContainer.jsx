@@ -1,26 +1,22 @@
 import "./TaskContainer.css";
 
 function TaskContainer() {
-    const containerTitle = "Task Due Today";
+  const containerTitle = "Task Due Today";
+  const tasks = [
+    { time: "9:00 AM", text: "Get eggs", isUrgent: true },
+    { time: "9:05 AM", text: "Clean your room", isUrgent: false },
+    { time: "10:00 AM", text: "Complete task1", isUrgent: false },
+    { time: "4:00 PM", text: "Go for a walk", isUrgent: false },
+  ];
   return (
     <>
       <h2>{containerTitle}</h2>
       <ul>
-        <li>
-          <span>9:00 AM</span>-<span>Get eggs in 5 mins</span>
-        </li>
-        <li>
-          <span>9:05 AM</span>-<span>Forget to get eggs</span>
-        </li>
-        <li>
-          <span>10:00 AM</span>-<span>Get scolded by mom</span>
-        </li>
-        <li>
-          <span>10:05 AM</span>-<span>Argue with mom</span>
-        </li>
-        <li>
-          <span>10:10 AM</span>-<span>Tend to your chappal bruise on face</span>
-        </li>
+        {tasks.map((task, index) => (
+          <li key={index}>
+            <span>{task.time}</span>-<span>{task.text}</span>
+          </li>
+        ))}
       </ul>
     </>
   );
