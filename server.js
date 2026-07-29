@@ -14,6 +14,14 @@ const server = http.createServer((req, res) => {
     <p>This is my first Node.js web server, built without any external frameworks.</p>
     <p>Created by: Your Name</p>
   `);
+  } else if (req.url === "/api/student") {
+    const student = {
+      name: "John",
+      course: "Web Development",
+      semester: 5,
+    };
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify(student));
   }
 });
 
