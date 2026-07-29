@@ -1,3 +1,4 @@
+const url = require("url"); // add this import at the top of server.js
 const http = require("http");
 
 const PORT = 3000;
@@ -22,6 +23,29 @@ const server = http.createServer((req, res) => {
     };
     res.writeHead(200, { "Content-Type": "application/json" });
     res.end(JSON.stringify(student));
+  } else if (req.url === "/contact") {
+    res.writeHead(200, { "Content-Type": "text/html" });
+    res.end(`
+    <h1>Contact Me</h1>
+    <p>Email: your.email@example.com</p>
+    <p>Phone: +1 234 567 8900</p>
+  `);
+  } else if (req.url === "/api/time") {
+    const timeData = { currentTime: new Date().toISOString() };
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify(timeData));
+  } else if (req.url === "/api/random") {
+    const randomNumber = Math.floor(Math.random() * 100) + 1;
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({ randomNumber }));
+  }
+  // inside the route handling logic:
+  else if (req.url.startsWith("/hello")) {
+    const parsedUrl = url.parse(req.url, true);
+    const name = parsedUrl.query.name || "Guest";
+
+    res.writeHead(200, { "Content-Type": "text/plain" });
+    res.end(`Hello, ${name}!`);
   } else {
     res.writeHead(404, { "Content-Type": "text/plain" });
     res.end("404 - Page Not Found");
