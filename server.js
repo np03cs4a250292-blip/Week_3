@@ -7,6 +7,13 @@ const server = http.createServer((req, res) => {
   if (req.url === "/") {
     res.writeHead(200, { "Content-Type": "text/plain" });
     res.end("Welcome to my Node.js Server!");
+  } else if (req.url === "/about") {
+    res.writeHead(200, { "Content-Type": "text/html" });
+    res.end(`
+    <h1>About This Server</h1>
+    <p>This is my first Node.js web server, built without any external frameworks.</p>
+    <p>Created by: Your Name</p>
+  `);
   }
 });
 
