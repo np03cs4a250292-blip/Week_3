@@ -1,32 +1,25 @@
-const todoList = [];
+import { DataTypes } from "sequelize";
+import { sequelize } from "../config/database.js";
 
-const createIdGenerator = (start = 1) => {
-  let counter = start;
-  return {
-    nextId: () => counter++,
-    currentId: () => counter,
-  };
-};
-
-const idGen = createIdGenerator();
-
-export const TodoModel = {
-  getAll: () => todoList,
-
-  getById: (id) => todoList.find((t) => t.id === id),
-
-  create: ({ title, deadline, isUrgent }) => {
-    const newTodo = {
-      id: idGen.nextId(),
-      title,
-      deadline,
-      isUrgent,
-    };
-    todoList.push(newTodo);
-    return newTodo;
+export const TodoItem = sequelize.define(
+  "TodoItem",
+  {
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    deadline: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    isUrgent: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
   },
-
-  findIndexById: (id) => todoList.findIndex((t) => t.id === id),
-
-  deleteByIndex: (idx) => todoList.splice(idx, 1)[0],
-};
+  {
+    tableName: "todos",
+    timestamps: true,
+  },
+);

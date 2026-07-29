@@ -1,57 +1,34 @@
-import { TodoService, ValidationError } from "../services/todoService.js";
+import { TodoService } from "../services/todoService.js";
 
-export const getAllTodos = (req, res) => {
-  res.status(200).json(TodoService.getAllTodos());
+export const getAllTodos = async (req, res) => {
+  res.status(200).json(await TodoService.getAllTodos());
 };
 
-export const getTodoById = (req, res) => {
-  const id = Number(req.params.id);
-  const todo = TodoService.getTodoById(id);
-
+export const getTodoById = async (req, res) => {
+  const todo = await TodoService.getTodoById(req.params.id);
   if (!todo) {
     return res.status(404).json({ error: "Todo item not found" });
   }
-
   res.status(200).json(todo);
 };
 
-export const createTodo = (req, res, next) => {
-  try {
-    const newTodo = TodoService.createTodo(req.body);
-    res.status(201).json(newTodo);
-  } catch (err) {
-    if (err instanceof ValidationError) {
-      return res.status(err.statusCode).json({ error: err.message });
-    }
-    next(err);
-  }
+export const createTodo = async (req, res) => {
+  const newTodo = await TodoService.createTodo(req.body);
+  res.status(201).json(newTodo);
 };
 
-export const updateTodo = (req, res, next) => {
-  try {
-    const id = Number(req.params.id);
-    const updated = TodoService.updateTodo(id, req.body);
-
-    if (!updated) {
-      return res.status(404).json({ error: "Todo not found" });
-    }
-
-    res.status(200).json(updated);
-  } catch (err) {
-    if (err instanceof ValidationError) {
-      return res.status(err.statusCode).json({ error: err.message });
-    }
-    next(err);
+export const updateTodo = async (req, res) => {
+  const updated = await TodoService.updateTodo(req.params.id, req.body);
+  if (!updated) {
+    return res.status(404).json({ error: "Todo not found" });
   }
+  res.status(200).json(updated);
 };
 
-export const deleteTodo = (req, res) => {
-  const id = Number(req.params.id);
-  const deleted = TodoService.deleteTodo(id);
-
+export const deleteTodo = async (req, res) => {
+  const deleted = await TodoService.deleteTodo(req.params.id);
   if (!deleted) {
     return res.status(404).json({ error: "Todo item not found" });
   }
-
   res.status(200).json({ message: "Todo deleted", todo: deleted });
 };
