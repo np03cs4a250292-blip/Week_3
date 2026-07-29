@@ -1,14 +1,6 @@
 import "./TaskContainer.css";
 
-function TaskContainer() {
-  const containerTitle = "Tasks Due Today";
-  const tasks = [
-    { time: "9:00 AM", text: "Get eggs", isUrgent: true },
-    { time: "9:05 AM", text: "Clean your room", isUrgent: false },
-    { time: "10:00 AM", text: "Complete task 1", isUrgent: false },
-    { time: "4:00 PM", text: "Go for a walk", isUrgent: false },
-  ];
-
+function TaskContainer({containerTitle, tasks}) {
   if (tasks.length === 0) {
     return <h2>No Pending Tasks</h2>;
   } else {
