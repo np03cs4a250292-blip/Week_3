@@ -5,5 +5,5 @@ fs.writeFile("output.txt", "Hello, world", (err) => {
     console.error("Error writing file:", err);
   }
 
-  console.log("File written successfully");
+  console.log("File written successfully.");
 });
