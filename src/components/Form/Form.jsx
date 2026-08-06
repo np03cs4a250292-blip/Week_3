@@ -1,20 +1,17 @@
 import { useState } from "react";
+import { createTask } from "../../services/TaskService";
 import "./Form.css";
 
-function Form() {
+function Form({ setCurrentPage }) {
   const [title, setTitle] = useState("");
   const [deadline, setDeadline] = useState("");
   const [isUrgent, setIsUrgent] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    console.log({
-      title,
-      deadline,
-      isUrgent,
-    });
-    alert("Form submitted");
+    await createTask(title, deadline, isUrgent);
+    setCurrentPage(0);
+    alert("Task Saved Successfully");
   };
 
   return (
@@ -44,7 +41,7 @@ function Form() {
         <div>
           <input
             type="checkbox"
-            check={isUrgent}
+            checked={isUrgent}
             onChange={(e) => setIsUrgent(e.target.checked)}
           />
           <label>Is Urgent</label>
